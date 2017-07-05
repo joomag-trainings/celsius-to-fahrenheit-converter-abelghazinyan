@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Convertor</title>
+    <style>
+        body {
+            margin:0px;
+            padding: 0px;
+            border:0px;
+            background-color: #e8e8eb;
+            background-image: url("https://www.transparenttextures.com/patterns/random-grey-variations.png");
+        }
+        .body {
+            margin: auto auto;
+            margin-top:50px;
+            width:500px;
+            height: 500px;
+            border:5px solid crimson;
+            background-color: white;
+        }
+        .bar1 , .bar2 {
+            position: relative;
+            height: 400px;
+            width:10px;
+            float:left;
+            margin:8px;
+            border:2px solid aqua;
+            background-color: azure;
+
+        }
+        .bar1 {
+            border-right-style:dotted;
+            border-right-width: 5px;
+        }
+        .bar2 {
+            border-left-style:dotted;
+            border-left-width: 5px;
+        }
+        .convertor {
+            width:330px;
+            height:300px ;
+            margin:1px;
+            padding:50px;
+            padding-top:100px;
+            float:left;
+        }
+        h1 {
+            font-family: "DejaVu Sans";
+            color: crimson;
+        }
+        #bar1,#bar2 {
+            position: absolute;
+            background-color: crimson;
+            height:0px;
+            width: 10px;
+            bottom:0px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <center>
+        <h1>Convertor</h1>
+        </center>
+
+        <div class="bar1">
+            <div id="bar1">
+            </div>
+        </div>
+        <div class="convertor">
+            <center>
+            <label for="in1" id="label1">Celsius</label><input oninput="calculate()" style="width:50px;height: 20px;font-size:15px;border:2px solid black;background-color: azure;color:darkblue" type="text" id="in1">
+            <label for="in2" id="label2">Fahrenheit</label><input disabled style="width:50px;height: 20px;font-size:15px;border:2px solid black;background-color: azure;color:darkblue" type="text" id="in2">
+            <br><br>
+            <button style="background-color: darkblue;color:azure;font-size: 30px;border:0px" id="change" onclick="change()"><-></button>
+            </center>
+        </div>
+        <div class="bar2">
+            <div id="bar2">
+            </div>
+        </div>
+    </div>
+    <script>
+        var ctof=true;
+        var tmp=0;
+        var bar1=document.getElementById('bar1');
+        var bar2=document.getElementById('bar2');
+        var in1=document.getElementById('in1');
+        var in2=document.getElementById('in2');
+        function calculate() {
+
+
+            if(ctof){
+                if(in1.value>100)
+                    in1.value=100;
+                if(in1.value<-100)
+                    in1.value=-100;
+                in2.value=parseInt(in1.value)*9/5+32;
+                bar1.style.height=(200+(parseInt(in1.value))*2)+"px";
+                bar2.style.height=(200+(parseInt(in2.value))*50/53)+"px";
+
+            }else{
+                if(in1.value>212)
+                    in1.value=212;
+                if(in1.value<-212)
+                    in1.value=-212;
+                in2.value=(in1.value-32)*5/9;
+                bar1.style.height=(200+(parseInt(in1.value))*50/53)+"px";
+                bar2.style.height=(200+(parseInt(in2))*2)+"px";
+            }
+
+        }
+        function change(){
+            ctof=!ctof;
+            tmp= in1.value;
+            in1.value=in2.value;
+            document.getElementById('in2').value=tmp;
+            if(ctof) {
+                document.getElementById('label1').textContent = "Celsius";
+                document.getElementById('label2').textContent = "Fahrenheit";
+                bar1.style.height=(200+(parseInt(in1.value))*2)+"px";
+                bar2.style.height=(200+(parseInt(document.getElementById('in2').value))*50/53)+"px";
+
+            }else{
+                document.getElementById('label1').textContent = "Fahrenheit";
+                document.getElementById('label2').textContent = "Celsius";
+                bar1.style.height=(200+(parseInt(in1.value))*50/53)+"px";
+                bar2.style.height=(200+(parseInt(in2.value))*2)+"px";
+            }
+        }
+        in1.value=0;
+        in2.value=32;
+        calculate();
+    </script>
+</body>
+</html>
